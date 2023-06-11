@@ -7,12 +7,21 @@ import { autoFormatNumber, enumFromKey } from "../shared/utils";
 import { Stat } from "../shared/types";
 import statsConfig from "../config/stats";
 import Icon from "../shared/components/icon";
+import { PlayerSlice } from "../store/player";
+import { ChampionNode } from "../store/champions";
+
+enum ConnectionStatus {
+  Unavailable,
+  Unlocked,
+  Completed,
+  Queued,
+}
 
 export function ChampionTree() {
   const champions = useStore(s => pick(s.champions, [
     'championRows',
   ]), shallow);
-  const player = useStore(s => s.player.fighter);
+  const player = useStore(s => s.player);
   const startFight = useStore(s => s.fighting.startFight);
 
   return <Page>
@@ -21,16 +30,40 @@ export function ChampionTree() {
     <Tree>
     {champions.championRows.map((row, r) =>
       <ChampionRow key={r}>
-        {row.map((champ, i) => 
-          (champ.completed ?
+        {row.map((champ, i) => {
+          const nextRow = champions.championRows[r + 1];
+          const connections = <>
+            {[[champ.leftChamp, "left"] as const, [champ.rightChamp, "right"] as const].map((con) => {
+              if (con[0] === undefined) return;
+
+              let status = ConnectionStatus.Unavailable;
+              if (champ.completed) {
+                if (nextRow[con[0]].completed) {
+                  status = ConnectionStatus.Completed;
+                } else if (nextRow[con[0]].locked) {
+                  status = ConnectionStatus.Unavailable;
+                } else {
+                  status = ConnectionStatus.Unlocked;
+                }
+              } else {
+                if (player.fightQueue[r] === i && player.fightQueue[r + 1] === con[0]) {
+                  status = ConnectionStatus.Queued;
+                } else {
+                  status = ConnectionStatus.Unavailable;
+                }
+              }
+
+              return <ConnectionArrow status={status} direction={con[1]} />
+            })}
+          </>;
+          return (champ.completed ?
             <ChampionCompleted>
               <span>{champ.champion.name}</span>
-              {champ.leftChamp !== undefined && <ConnectionArrow locked={false} direction="left"></ConnectionArrow>}
-              {champ.rightChamp !== undefined && <ConnectionArrow locked={false} direction="right"></ConnectionArrow>}
+              {connections}
             </ChampionCompleted> :
             <ChampionButton
               key={`${r}:${i}`}
-              onClick={() => startFight(player, champ.champion, r, i)}
+              onClick={() => startFight(player.fighter, champ.champion, r, i)}
               disabled={champ.locked}
             >
               <strong>{champ.champion.name}</strong>
@@ -44,9 +77,10 @@ export function ChampionTree() {
                 </StatStyled>
               )}
               </Stats>
+              {connections}
             </ChampionButton>
-          )
-        )}
+          );
+        })}
       </ChampionRow>
     )}
     </Tree>
@@ -125,8 +159,8 @@ const StatStyled = styled.div`
   gap: 2px;
 `;
 
-function ConnectionArrow(props: {locked: boolean, direction: string}) {
-  return <ConnectionArrowStyled locked={props.locked}>
+function ConnectionArrow(props: {status: ConnectionStatus, direction: string}) {
+  return <ConnectionArrowStyled status={props.status}>
     <svg overflow="visible">
       {props.direction === "left" && <line x1="-30" y1="0" x2="-60" y2="25"></line>}
       {props.direction === "right" && <line x1="30" y1="0" x2="60" y2="25"></line>}
@@ -134,12 +168,14 @@ function ConnectionArrow(props: {locked: boolean, direction: string}) {
   </ConnectionArrowStyled>;
 }
 
-const ConnectionArrowStyled = styled.div<{locked: boolean}>`
+const ConnectionArrowStyled = styled.div<{status: ConnectionStatus}>`
   position: absolute;
   top: 100%;
   margin-top: 4px;
   left: 50%;
 
-  stroke: ${p => p.locked ? `#666` : 'white'};
+  ${p => p.status === ConnectionStatus.Unlocked && `stroke: white;`}
+  ${p => p.status === ConnectionStatus.Completed && `stroke: white;`}
+  ${p => p.status === ConnectionStatus.Queued && `stroke: blue;`}
   stroke-width: 3px;
 `;

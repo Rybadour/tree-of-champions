@@ -6,6 +6,9 @@ export interface PlayerSlice {
 
   wonFight: (newFighter: Fighter, stats: Stats) => void,
   lostFight: () => void,
+
+  fightQueue: number[],
+  updateFightQueue: (row: number, column: number) => void,
 }
 
 const startingStats: Stats = {
@@ -27,6 +30,7 @@ const createPlayerSlice: MyCreateSlice<PlayerSlice, []> = (set, get) => {
       attackCooldown: 0,
       statusEffects: {},
     },
+    fightQueue: [],
 
     wonFight: (newFighter, stats) => {
       set({fighter: {
@@ -46,6 +50,11 @@ const createPlayerSlice: MyCreateSlice<PlayerSlice, []> = (set, get) => {
         attackCooldown: 0,
         statusEffects: {},
       }});
+    },
+
+    updateFightQueue: (row: number, column: number) => {
+      const newQueue = [...get().fightQueue];
+      set({fightQueue: newQueue});
     }
   };
 };
