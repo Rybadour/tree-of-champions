@@ -41,11 +41,15 @@ function FighterStats(props: {fighter: Fighter, flip?: boolean}) {
   return <FighterStatsStyled align={props.flip ? "flex-end" : "flex-start"}>
     <h2>{props.fighter.name}</h2>
 
+    {/* *
     <Sprite
       spriteSheet={props.fighter.spriteSheet}
+      spriteSize={props.fighter.spriteSize}
+      row={props.fighter.attackAnimationRow}
       flip={props.flip}
       animationLength={Math.floor(attackTime * 1000)}
     ></Sprite>
+    /* */ }
 
     <ProgressCircle
       progress={props.fighter.attackCooldown / attackTime}
@@ -128,20 +132,27 @@ const Status = styled.div`
   gap: 2px;
 `;
 
-const animStart = 8 * -16;
-const Sprite = styled.div<{spriteSheet: string, flip?: boolean, animationLength: number}>`
+const animStart = -8;
+const numFrames = 4;
+const Sprite = styled.div<{
+  spriteSheet: string,
+  spriteSize: number,
+  row: number,
+  flip?: boolean,
+  animationLength: number
+}>`
   position: absolute;
   ${p => p.flip ? 'left: 30px;' : 'right: 30px;'}
   top: 60px;
   background-image: url(${p => p.spriteSheet});
-  width: 16px;
-  height: 16px;
+  width: ${p => p.spriteSize}px;
+  height: ${p => p.spriteSize}px;
   transform: scaleX(${p => p.flip ? -3 : 3}) scaleY(3);
   image-rendering: pixelated;
   animation: idle ${p => p.animationLength}ms steps(4) infinite;
 
   @keyframes idle {
-    from { background-position: ${animStart}px -32px }
-    to { background-position: ${animStart - 64}px -32px }
+    from { background-position: ${p => animStart * p.spriteSize}px ${p => p.spriteSize * -p.row}px }
+    to { background-position: ${p => animStart * p.spriteSize - (p.spriteSize * numFrames)}px ${p => p.spriteSize * -p.row}px }
   }
 `;

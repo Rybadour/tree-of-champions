@@ -28,6 +28,8 @@ const createFightingSlice: MyCreateSlice<FightingSlice, [() => PlayerSlice, () =
         fighter: {
           name: champion.name,
           spriteSheet: champion.spriteSheet,
+          spriteSize: 16,
+          attackAnimationRow: 0,
           baseStats: champion.stats,
           health: champion.stats.health ?? 0,
           attackCooldown: 0,

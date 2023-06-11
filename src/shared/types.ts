@@ -51,6 +51,8 @@ export interface ChosenChampion {
 export interface Fighter {
   name: string,
   spriteSheet: string,
+  spriteSize: number,
+  attackAnimationRow: number,
   baseStats: Stats,
   statusEffects: Partial<Record<Status, StatusEffect>>,
   health: number,
