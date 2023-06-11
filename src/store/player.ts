@@ -3,12 +3,13 @@ import { mergeSumPartial } from "../shared/utils";
 
 export interface PlayerSlice {
   fighter: Fighter,
+  fightQueue: number[],
+  autoQueueEnabled: boolean,
 
   wonFight: (newFighter: Fighter, stats: Stats) => void,
   lostFight: () => void,
-
-  fightQueue: number[],
   updateFightQueue: (row: number, column: number) => void,
+  setAutoQueue: (enabled: boolean) => void,
 }
 
 const startingStats: Stats = {
@@ -31,6 +32,7 @@ const createPlayerSlice: MyCreateSlice<PlayerSlice, []> = (set, get) => {
       statusEffects: {},
     },
     fightQueue: [],
+    autoQueueEnabled: true,
 
     wonFight: (newFighter, stats) => {
       set({fighter: {
@@ -53,9 +55,19 @@ const createPlayerSlice: MyCreateSlice<PlayerSlice, []> = (set, get) => {
     },
 
     updateFightQueue: (row: number, column: number) => {
-      const newQueue = [...get().fightQueue];
+      let newQueue = [...get().fightQueue];
+      if (newQueue.length > row && newQueue[row] !== column) {
+        newQueue = newQueue.slice(0, row);
+      }
+
+      newQueue[row] = column;
       set({fightQueue: newQueue});
+    },
+
+    setAutoQueue: (enabled: boolean) => {
+      set({autoQueueEnabled: enabled});
     }
+
   };
 };
 

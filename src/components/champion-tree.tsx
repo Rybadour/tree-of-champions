@@ -1,14 +1,13 @@
 import styled from "styled-components";
 import { pick } from "lodash";
 import shallow from "zustand/shallow";
+import { useCallback } from "react";
 
 import useStore from "../store";
 import { autoFormatNumber, enumFromKey } from "../shared/utils";
-import { Stat } from "../shared/types";
+import { Champion, Stat } from "../shared/types";
 import statsConfig from "../config/stats";
 import Icon from "../shared/components/icon";
-import { PlayerSlice } from "../store/player";
-import { ChampionNode } from "../store/champions";
 
 enum ConnectionStatus {
   Unavailable,
@@ -23,6 +22,11 @@ export function ChampionTree() {
   ]), shallow);
   const player = useStore(s => s.player);
   const startFight = useStore(s => s.fighting.startFight);
+
+  const onStartFight = useCallback((champ: Champion, row: number, column: number) => {
+    player.updateFightQueue(row, column);
+    startFight(player.fighter, champ, row, column);
+  }, [player, startFight]);
 
   return <Page>
     <h2>Champions</h2>
@@ -63,7 +67,7 @@ export function ChampionTree() {
             </ChampionCompleted> :
             <ChampionButton
               key={`${r}:${i}`}
-              onClick={() => startFight(player.fighter, champ.champion, r, i)}
+              onClick={() => onStartFight(champ.champion, r, i)}
               disabled={champ.locked}
             >
               <strong>{champ.champion.name}</strong>
@@ -176,6 +180,6 @@ const ConnectionArrowStyled = styled.div<{status: ConnectionStatus}>`
 
   ${p => p.status === ConnectionStatus.Unlocked && `stroke: white;`}
   ${p => p.status === ConnectionStatus.Completed && `stroke: white;`}
-  ${p => p.status === ConnectionStatus.Queued && `stroke: blue;`}
+  ${p => p.status === ConnectionStatus.Queued && `stroke: #3d73ba;`}
   stroke-width: 3px;
 `;

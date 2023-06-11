@@ -17,37 +17,40 @@ export interface FightingSlice {
 
 const createFightingSlice: MyCreateSlice<FightingSlice, [() => PlayerSlice, () => ChampionsSlice]>
 = (set, get, playerStore, championsStore) => {
+  function getNextFighter() {
+    const queue = playerStore().fightQueue;
+    const champions = championsStore().championRows;
+
+    let nextChamp: {row: number, index: number} | null = null;
+    for (let r = 0; r < queue.length; ++r) {
+      if (!champions[r][queue[r]].completed) {
+        nextChamp = {row: r, index: queue[r]};
+        break;
+      }
+    }
+
+    return (nextChamp ? {...getChampionFighter(champions[nextChamp.row][nextChamp.index].champion), ...nextChamp} : null);
+  }
+
   return {
     player: null,
     championFighter: null,
     champion: null,
 
     startFight: (player, champion, row, index) => {
-      set({player, championFighter: {
-        champion: champion,
-        fighter: {
-          name: champion.name,
-          spriteSheet: champion.spriteSheet,
-          spriteSize: 16,
-          attackAnimationRow: 0,
-          baseStats: champion.stats,
-          health: champion.stats.health ?? 0,
-          attackCooldown: 0,
-          statusEffects: {},
-        },
-        row, index,
-      }})
+      set({ player, championFighter: {...getChampionFighter(champion), row, index} });
     },
     
     update: (elapsed) => {
-      const {player, championFighter} = get();
+      let {player, championFighter} = get();
       if (!player || !championFighter) return;
 
       updateFighter(elapsed, player, championFighter.fighter);
       if (championFighter.fighter.health <= 0) {
         playerStore().wonFight(player, championFighter.champion.earnedStats);
         championsStore().championDefeated(championFighter);
-        set({player: null, championFighter: null});
+
+        set({player: playerStore().fighter, championFighter: getNextFighter()});
         return;
       }
 
@@ -55,7 +58,8 @@ const createFightingSlice: MyCreateSlice<FightingSlice, [() => PlayerSlice, () =
       if (player.health <= 0) {
         playerStore().lostFight();
         championsStore().reset();
-        set({player: null, championFighter: null});
+
+        set({player: playerStore().fighter, championFighter: getNextFighter()});
         return;
       }
 
@@ -127,6 +131,22 @@ function applyStatus(fighter: Fighter, status: Status, value: number) {
   const newStatus: StatusEffect = fighter.statusEffects[status] ?? {status, strength: 0, timeLeft: statusTimeMap[status]};
   newStatus.strength += value;
   fighter.statusEffects[status] = newStatus;
+}
+
+function getChampionFighter(champion: Champion): Pick<ChampionFighter, "champion" | "fighter"> {
+  return {
+    champion: champion,
+    fighter: {
+      name: champion.name,
+      spriteSheet: champion.spriteSheet,
+      spriteSize: 16,
+      attackAnimationRow: 0,
+      baseStats: champion.stats,
+      health: champion.stats.health ?? 0,
+      attackCooldown: 0,
+      statusEffects: {},
+    },
+  };
 }
 
 export default createFightingSlice;

@@ -12,6 +12,7 @@ import useStore from './store';
 import FighterStats from './components/shared/fighter-stats';
 import styled from 'styled-components';
 import Fight from './components/fight';
+import { FightQueue } from './components/fight-queue';
 
 function App() {
   return (
@@ -51,7 +52,10 @@ function Content() {
   }, []);
 
   return <ContentStyled>
-    <FighterStats fighter={player} />
+    <SideColumn>
+      <FighterStats fighter={player} />
+      <FightQueue />
+    </SideColumn>
     <ChampionsSection>
       <Fight />
       <ChampionTree />
@@ -72,6 +76,13 @@ const ChampionsSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+`;
+
+const SideColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  height: 100%;
 `;
 
 export default App;
