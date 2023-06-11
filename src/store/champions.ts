@@ -5,6 +5,8 @@ export interface ChampionNode {
   champion: Champion,
   completed: boolean,
   locked: boolean,
+  leftChamp?: number,
+  rightChamp?: number,
 }
 
 export interface ChampionsSlice {
@@ -39,20 +41,11 @@ const createChampionsSlice: MyCreateSlice<ChampionsSlice, []> = (set, get) => {
 
         node.locked = true;
       })
-      if (newRows.length > chosen.row + 1) {
-        if (newRows[chosen.row + 1].length > newRows[chosen.row].length) {
-          newRows[chosen.row + 1][chosen.index].locked = false;
-          newRows[chosen.row + 1][chosen.index + 1].locked = false;
-        } else {
-          if (chosen.index == 0) {
-            newRows[chosen.row + 1][0].locked = false;
-          } else if (chosen.index == newRows[chosen.row].length - 1) {
-            newRows[chosen.row + 1][newRows[chosen.row + 1].length - 1].locked = false;
-          } else {
-            newRows[chosen.row + 1][chosen.index - 1].locked = false;
-            newRows[chosen.row + 1][chosen.index].locked = false;
-          }
-        }
+      if (newChampionNode.leftChamp !== undefined) {
+        newRows[chosen.row + 1][newChampionNode.leftChamp].locked = false;
+      }
+      if (newChampionNode.rightChamp !== undefined) {
+        newRows[chosen.row + 1][newChampionNode.rightChamp].locked = false;
       }
 
       set({championRows: newRows});
@@ -64,14 +57,37 @@ const createChampionsSlice: MyCreateSlice<ChampionsSlice, []> = (set, get) => {
   };
 };
 
-function getInitialRows() {
-  return rows.map((row, r) => 
-    row.map((id, i) => ({
-      champion: champions[id],
-      completed: false,
-      locked: (r !== 0),
-    }))
-  );
+function getInitialRows(): ChampionNode[][] {
+  return rows.map((row, r) => {
+    const nextRow = r + 1;
+    const rowLength = row.length;
+
+    return row.map((id, i) => {
+      const nextChamps: Pick<ChampionNode, "leftChamp" | "rightChamp"> = {};
+      if (rows.length > nextRow) {
+        if (rows[nextRow].length > rowLength) {
+          nextChamps.leftChamp = i;
+          nextChamps.rightChamp = i + 1;
+        } else {
+          if (i == 0) {
+            nextChamps.rightChamp = 0;
+          } else if (i == rowLength - 1) {
+            nextChamps.leftChamp = rows[nextRow].length - 1;
+          } else {
+            nextChamps.leftChamp = i - 1;
+            nextChamps.rightChamp = i;
+          }
+        }
+      }
+
+      return {
+        champion: champions[id],
+        completed: false,
+        locked: (r !== 0),
+        ...nextChamps,
+      };
+    });
+  });
 }
 
 export default createChampionsSlice;

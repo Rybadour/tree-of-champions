@@ -49,7 +49,7 @@ function FighterStats(props: {fighter: Fighter, flip?: boolean}) {
       flip={props.flip}
       animationLength={Math.floor(attackTime * 1000)}
     ></Sprite>
-    /* */ }
+    /* */}
 
     <ProgressCircle
       progress={props.fighter.attackCooldown / attackTime}

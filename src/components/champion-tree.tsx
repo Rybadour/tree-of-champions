@@ -23,7 +23,11 @@ export function ChampionTree() {
       <ChampionRow key={r}>
         {row.map((champ, i) => 
           (champ.completed ?
-            <ChampionCompleted>{champ.champion.name}</ChampionCompleted> :
+            <ChampionCompleted>
+              <span>{champ.champion.name}</span>
+              {champ.leftChamp !== undefined && <ConnectionArrow locked={false} direction="left"></ConnectionArrow>}
+              {champ.rightChamp !== undefined && <ConnectionArrow locked={false} direction="right"></ConnectionArrow>}
+            </ChampionCompleted> :
             <ChampionButton
               key={`${r}:${i}`}
               onClick={() => startFight(player, champ.champion, r, i)}
@@ -68,6 +72,7 @@ const ChampionRow = styled.div`
 `;
 
 const ChampionButton = styled.button`
+  position: relative;
   width: ${nodeWidth}px;
   height: ${nodeHeight}px;
   border-radius: 5px;
@@ -92,6 +97,7 @@ const ChampionButton = styled.button`
 `;
 
 const ChampionCompleted = styled.div`
+  position: relative;
   width: ${nodeWidth}px;
   height: ${nodeHeight}px;
   border-radius: 5px;
@@ -117,4 +123,23 @@ const StatStyled = styled.div`
   display: flex;
   flex-direction: row;
   gap: 2px;
+`;
+
+function ConnectionArrow(props: {locked: boolean, direction: string}) {
+  return <ConnectionArrowStyled locked={props.locked}>
+    <svg overflow="visible">
+      {props.direction === "left" && <line x1="-30" y1="0" x2="-60" y2="25"></line>}
+      {props.direction === "right" && <line x1="30" y1="0" x2="60" y2="25"></line>}
+    </svg>
+  </ConnectionArrowStyled>;
+}
+
+const ConnectionArrowStyled = styled.div<{locked: boolean}>`
+  position: absolute;
+  top: 100%;
+  margin-top: 4px;
+  left: 50%;
+
+  stroke: ${p => p.locked ? `#666` : 'white'};
+  stroke-width: 3px;
 `;
