@@ -57,7 +57,7 @@ function FighterStats(props: {fighter: Fighter, flip?: boolean}) {
       color="white"
       radius={20}
     />
-    <HealthAndStatus>
+    <HealthAndStatus flip={props.flip}>
       <div>{formatNumber(props.fighter.health, 0, 0)}/{formatNumber(props.fighter.baseStats.health ?? 0, 0, 0)}</div>
       <Statuses>
       {Object.values(props.fighter.statusEffects)
@@ -75,6 +75,7 @@ function FighterStats(props: {fighter: Fighter, flip?: boolean}) {
       hasBorder={true}
       color={"red"}
       height={20}
+      flip={props.flip}
     />
   </FighterStatsStyled>;
 }
@@ -113,9 +114,9 @@ const VSLabel = styled.p`
   color: #888;
 `;
 
-const HealthAndStatus = styled.div`
+const HealthAndStatus = styled.div<{flip?: boolean}>`
   display: flex;
-  flex-direction: row;
+  flex-direction: ${props => props.flip ? 'row-reverse' : 'row'};
   justify-content: space-between;
   width: 100%;
 `;
