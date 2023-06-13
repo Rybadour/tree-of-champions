@@ -7,7 +7,7 @@ import shallow from 'zustand/shallow';
 
 import './App.scss';
 import Header from './components/header/header';
-import { ChampionTree } from './components/champion-tree';
+import { ChampionTree } from './components/champion-tree/champion-tree';
 import useStore from './store';
 import FighterStats from './components/shared/fighter-stats';
 import styled from 'styled-components';
