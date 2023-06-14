@@ -1,15 +1,15 @@
 import { FloatingArrow, arrow, offset, useFloating, useHover, useInteractions } from "@floating-ui/react";
 import { useCallback, useRef, useState } from "react";
+import shallow from "zustand/shallow";
+import styled from "styled-components";
+
 import { Champion, Stat } from "../../shared/types";
 import useStore from "../../store";
-import { pick } from "lodash";
-import shallow from "zustand/shallow";
 import { ChampionNode } from "../../store/champions";
 import { ConnectionArrow, ConnectionStatus } from "./connection-arrow";
 import { autoFormatNumber, enumFromKey } from "../../shared/utils";
 import statsConfig from "../../config/stats";
 import Icon from "../../shared/components/icon";
-import styled from "styled-components";
 
 export interface ChampionButtonProps {
   champion: ChampionNode, 
@@ -68,7 +68,7 @@ export function ChampionButton(props: ChampionButtonProps) {
     })}
   </>;
   return <ButtonContainer ref={refs.setReference} {...getReferenceProps()}>
-    {champ.completed ?
+    {!champ.hidden && (champ.completed ?
       <ChampionCompleted>
         <span>{champ.champion.name}</span>
         {connections}
@@ -90,7 +90,7 @@ export function ChampionButton(props: ChampionButtonProps) {
         </EarnedStats>
         {connections}
       </ChampionButtonStyled>
-    }
+    )}
     {isOpen &&
       <Tooltip ref={refs.setFloating} style={floatingStyles} {...getFloatingProps()}>
         <strong>{champ.champion.name}</strong>
@@ -117,12 +117,14 @@ export const nodeHeight = 80;
 
 const ButtonContainer = styled.div`
   position: relative;
+  width: ${nodeWidth}px;
+  height: ${nodeHeight}px;
 `;
 
 const ChampionButtonStyled = styled.button`
   position: relative;
-  width: ${nodeWidth}px;
-  height: ${nodeHeight}px;
+  width: 100%;
+  height: 100%;
   border-radius: 5px;
   border: none;
   font-weight: bold;

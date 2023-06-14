@@ -1,3 +1,4 @@
+import { map, mapKeys } from "lodash";
 import champions from "../config/champions";
 import { Champion, ChosenChampion, Fighter, MyCreateSlice } from "../shared/types";
 
@@ -5,6 +6,7 @@ export interface ChampionNode {
   champion: Champion,
   completed: boolean,
   locked: boolean,
+  hidden: boolean,
   leftChamp?: number,
   rightChamp?: number,
 }
@@ -42,17 +44,28 @@ const createChampionsSlice: MyCreateSlice<ChampionsSlice, []> = (set, get) => {
         node.locked = true;
       })
       if (newChampionNode.leftChamp !== undefined) {
-        newRows[chosen.row + 1][newChampionNode.leftChamp].locked = false;
+        const leftChamp = newRows[chosen.row + 1][newChampionNode.leftChamp];
+        leftChamp.locked = false;
+        leftChamp.hidden = false;
       }
       if (newChampionNode.rightChamp !== undefined) {
-        newRows[chosen.row + 1][newChampionNode.rightChamp].locked = false;
+        const rightChamp = newRows[chosen.row + 1][newChampionNode.rightChamp];
+        rightChamp.locked = false;
+        rightChamp.hidden = false;
       }
 
       set({championRows: newRows});
     },
 
     reset: () => {
-      set({championRows: getInitialRows()});
+      const newRows = get().championRows.map((row, r) => 
+        row.map((champ) => ({
+          ...champ,
+          completed: false,
+          locked: (r != 0),
+        }))
+      );
+      set({ championRows: newRows });
     },
   };
 };
@@ -84,6 +97,7 @@ function getInitialRows(): ChampionNode[][] {
         champion: champions[id],
         completed: false,
         locked: (r !== 0),
+        hidden: (r !== 0),
         ...nextChamps,
       };
     });
