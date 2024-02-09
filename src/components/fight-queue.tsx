@@ -7,7 +7,7 @@ export function FightQueue() {
   return <div>
     <h2>Queue</h2>
     {player.fightQueue.map((col, row) => 
-      <div>{champions.championRows[row][col].champion.name}</div>
+      <p>Meh</p>
     )}
   </div>;
 }

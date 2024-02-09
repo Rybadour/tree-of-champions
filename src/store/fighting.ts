@@ -17,21 +17,6 @@ export interface FightingSlice {
 
 const createFightingSlice: MyCreateSlice<FightingSlice, [() => PlayerSlice, () => ChampionsSlice]>
 = (set, get, playerStore, championsStore) => {
-  function getNextFighter() {
-    const queue = playerStore().fightQueue;
-    const champions = championsStore().championRows;
-
-    let nextChamp: {row: number, index: number} | null = null;
-    for (let r = 0; r < queue.length; ++r) {
-      if (!champions[r][queue[r]].completed) {
-        nextChamp = {row: r, index: queue[r]};
-        break;
-      }
-    }
-
-    return (nextChamp ? {...getChampionFighter(champions[nextChamp.row][nextChamp.index].champion), ...nextChamp} : null);
-  }
-
   return {
     player: null,
     championFighter: null,
@@ -50,7 +35,7 @@ const createFightingSlice: MyCreateSlice<FightingSlice, [() => PlayerSlice, () =
         playerStore().wonFight(player, championFighter.champion.earnedStats);
         championsStore().championDefeated(championFighter);
 
-        set({player: playerStore().fighter, championFighter: getNextFighter()});
+        //set({player: playerStore().fighter, championFighter: getNextFighter()});
         return;
       }
 
@@ -59,7 +44,7 @@ const createFightingSlice: MyCreateSlice<FightingSlice, [() => PlayerSlice, () =
         playerStore().lostFight();
         championsStore().reset();
 
-        set({player: playerStore().fighter, championFighter: getNextFighter()});
+        //set({player: playerStore().fighter, championFighter: getNextFighter()});
         return;
       }
 

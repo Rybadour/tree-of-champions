@@ -7,7 +7,7 @@ import shallow from 'zustand/shallow';
 
 import './App.scss';
 import Header from './components/header/header';
-import { ChampionTree } from './components/champion-tree/champion-tree';
+import { Map } from './components/map/map';
 import useStore from './store';
 import FighterStats from './components/shared/fighter-stats';
 import styled from 'styled-components';
@@ -58,7 +58,7 @@ function Content() {
     </SideColumn>
     <ChampionsSection>
       <Fight />
-      <ChampionTree />
+      <Map />
     </ChampionsSection>
     <FighterStats fighter={fighting.championFighter?.fighter} flipDirection />
   </ContentStyled>;
