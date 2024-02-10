@@ -59,6 +59,24 @@ export interface Fighter {
   attackCooldown: number,
 }
 
+export interface MapNode {
+  id: string,
+  x: number;
+  y: number;
+  adjacentRooms: string[],
+  isStart: boolean,
+  isComplete: boolean,
+  isLocked: boolean,
+  isVisible: boolean,
+  occupiedByPlayer: boolean,
+  champion?: Champion,
+  permaBonus?: {
+    stat: Stat,
+    amount: number,
+  }
+}
+
+
 export type Lens<T> = [set: StoreApi<T>['setState'], get: StoreApi<T>['getState']];
 
 export type MyCreateSlice<T, A extends (() => any)[]> =

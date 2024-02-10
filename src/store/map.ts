@@ -1,21 +1,8 @@
-import { Champion, MyCreateSlice, Stat } from "../shared/types";
-
-export interface MapNode {
-  uuid: string,
-  adjacentNodes: string[],
-  completed: boolean,
-  locked: boolean,
-  visible: boolean,
-  occupiedByPlayer: boolean,
-  champion?: Champion,
-  permaBonus?: {
-    stat: Stat,
-    amount: number,
-  }
-}
+import { getMapNodes } from "../config/node-map";
+import { MapNode, MyCreateSlice } from "../shared/types";
 
 export interface MapSlice {
-  nodes: MapNode[],
+  nodes: Record<string, MapNode>,
 
   nodeComplete: (node: MapNode) => void,
   reset: () => void,
@@ -26,16 +13,16 @@ const createMapSlice: MyCreateSlice<MapSlice, []> = (set, get) => {
     nodes: getInitialNodes(),
 
     nodeComplete: (node) => {
-      const newNodes = [...get().nodes];
-      const newNode = newNodes.find(n => n.uuid === node.uuid);
+      const newNodes = {...get().nodes};
+      const newNode = newNodes[node.id];
       if (!newNode) return;
 
-      newNode.completed = true;
-      newNode.adjacentNodes.forEach(uuid => {
-        const node = newNodes.find(node => node.uuid === uuid);
+      newNode.isComplete = true;
+      newNode.adjacentRooms.forEach(id => {
+        const node = newNodes[id];
         if (node) {
-          node.locked = false;
-          node.visible = true;
+          node.isLocked = false;
+          node.isVisible = true;
         }
       });
 
@@ -46,8 +33,18 @@ const createMapSlice: MyCreateSlice<MapSlice, []> = (set, get) => {
       const newNodes = getInitialNodes();
 
       const oldNodes = get().nodes;
-      for (let i = 0; i < oldNodes.length; ++i) {
-        newNodes[i] = {...newNodes[i], visible: oldNodes[i].visible};
+      for (const id in oldNodes) {
+        const oldNode = oldNodes[id];
+        if (oldNode.isStart) {
+          newNodes[oldNode.id] = oldNode;
+        } else {
+          newNodes[oldNode.id] = {
+            ...oldNode,
+            isComplete: false,
+            isLocked: true,
+            isVisible: false,
+          };
+        }
       }
 
       set({ nodes: newNodes });
@@ -55,13 +52,17 @@ const createMapSlice: MyCreateSlice<MapSlice, []> = (set, get) => {
   }
 }
 
-function getInitialNodes(): MapNode[] {
-  return [
-    {uuid: '0', adjacentNodes: ['1', '2'], completed: false, locked: false, visible: true, occupiedByPlayer: true},
-    {uuid: '1', adjacentNodes: ['3'], completed: false, locked: true, visible: false, occupiedByPlayer: false},
-    {uuid: '2', adjacentNodes: ['3'], completed: false, locked: true, visible: false, occupiedByPlayer: false},
-    {uuid: '3', adjacentNodes: [], completed: false, locked: true, visible: false, occupiedByPlayer: false}
-  ];
+function getInitialNodes(): Record<string, MapNode> {
+  const newNodes = getMapNodes();
+  for (const n in newNodes) {
+    const node = newNodes[n];
+    newNodes[n] = {
+      ...newNodes[n],
+      occupiedByPlayer: (node.isStart ? true : false),
+      isLocked: node.isStart || node.adjacentRooms.some(adj => newNodes[adj].isStart),
+    };
+  }
+  return newNodes;
 }
 
 export default createMapSlice;

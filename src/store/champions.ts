@@ -1,6 +1,4 @@
-import { map, mapKeys } from "lodash";
-import champions from "../config/champions";
-import { Champion, ChosenChampion, Fighter, MyCreateSlice, Stat } from "../shared/types";
+import { Champion, ChosenChampion, MyCreateSlice } from "../shared/types";
 
 export interface ChampionNode {
   uuid: string,

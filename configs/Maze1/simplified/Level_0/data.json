@@ -1,0 +1,181 @@
+{
+	"identifier": "Level_0",
+	"uniqueIdentifer": "d7609110-b0a0-11ee-a198-edd6c8c69abe",
+	"x": 0,
+	"y": 0,
+	"width": 256,
+	"height": 256,
+	"bgColor": "#696A79",
+	"neighbourLevels": [],
+	"customFields" : {},
+	"layers": [],
+	"entities": {
+		"Room": [
+			{
+				"id": "Room",
+				"iid": "59f7cf80-b0a0-11ee-a198-156c769a6b15",
+				"layer": "Floor1",
+				"x": 64,
+				"y": 48,
+				"width": 16,
+				"height": 16,
+				"color": 3108798,
+				"customFields": {
+					"Monster": null,
+					"AdjacentRooms": [
+						{
+							"entityIid": "5aa1a410-b0a0-11ee-a198-6753f9be4402",
+							"layerIid": "e4123b20-b0a0-11ee-a198-1be1feb5ba87",
+							"levelIid": "d7609110-b0a0-11ee-a198-edd6c8c69abe",
+							"worldIid": "d7601be0-b0a0-11ee-a198-454119df76b7"
+						},
+						{
+							"entityIid": "6ad2ff00-b0a0-11ee-a198-8d4fe50df57a",
+							"layerIid": "e4123b20-b0a0-11ee-a198-1be1feb5ba87",
+							"levelIid": "d7609110-b0a0-11ee-a198-edd6c8c69abe",
+							"worldIid": "d7601be0-b0a0-11ee-a198-454119df76b7"
+						},
+						{
+							"entityIid": "5af2f860-b0a0-11ee-a198-b98d43019929",
+							"layerIid": "e4123b20-b0a0-11ee-a198-1be1feb5ba87",
+							"levelIid": "d7609110-b0a0-11ee-a198-edd6c8c69abe",
+							"worldIid": "d7601be0-b0a0-11ee-a198-454119df76b7"
+						},
+						{
+							"entityIid": "746bd050-b0a0-11ee-a198-539b69d1cfa1",
+							"layerIid": "e4123b20-b0a0-11ee-a198-1be1feb5ba87",
+							"levelIid": "d7609110-b0a0-11ee-a198-edd6c8c69abe",
+							"worldIid": "d7601be0-b0a0-11ee-a198-454119df76b7"
+						}
+					],
+					"PermaBonusStat": null,
+					"PermaBonusAmount": 0
+				}
+			},
+			{
+				"id": "Room",
+				"iid": "5aa1a410-b0a0-11ee-a198-6753f9be4402",
+				"layer": "Floor1",
+				"x": 208,
+				"y": 96,
+				"width": 16,
+				"height": 16,
+				"color": 12470831,
+				"customFields": {
+					"Monster": "Beholder",
+					"AdjacentRooms": [
+						{
+							"entityIid": "59f7cf80-b0a0-11ee-a198-156c769a6b15",
+							"layerIid": "e4123b20-b0a0-11ee-a198-1be1feb5ba87",
+							"levelIid": "d7609110-b0a0-11ee-a198-edd6c8c69abe",
+							"worldIid": "d7601be0-b0a0-11ee-a198-454119df76b7"
+						},
+						{
+							"entityIid": "5af2f860-b0a0-11ee-a198-b98d43019929",
+							"layerIid": "e4123b20-b0a0-11ee-a198-1be1feb5ba87",
+							"levelIid": "d7609110-b0a0-11ee-a198-edd6c8c69abe",
+							"worldIid": "d7601be0-b0a0-11ee-a198-454119df76b7"
+						}
+					],
+					"PermaBonusStat": "Health",
+					"PermaBonusAmount": 2
+				}
+			},
+			{
+				"id": "Room",
+				"iid": "5af2f860-b0a0-11ee-a198-b98d43019929",
+				"layer": "Floor1",
+				"x": 64,
+				"y": 128,
+				"width": 16,
+				"height": 16,
+				"color": 3108798,
+				"customFields": {
+					"Monster": "Rat",
+					"AdjacentRooms": [
+						{
+							"entityIid": "5aa1a410-b0a0-11ee-a198-6753f9be4402",
+							"layerIid": "e4123b20-b0a0-11ee-a198-1be1feb5ba87",
+							"levelIid": "d7609110-b0a0-11ee-a198-edd6c8c69abe",
+							"worldIid": "d7601be0-b0a0-11ee-a198-454119df76b7"
+						},
+						{
+							"entityIid": "59f7cf80-b0a0-11ee-a198-156c769a6b15",
+							"layerIid": "e4123b20-b0a0-11ee-a198-1be1feb5ba87",
+							"levelIid": "d7609110-b0a0-11ee-a198-edd6c8c69abe",
+							"worldIid": "d7601be0-b0a0-11ee-a198-454119df76b7"
+						}
+					],
+					"PermaBonusStat": null,
+					"PermaBonusAmount": 0
+				}
+			},
+			{
+				"id": "Room",
+				"iid": "6ad2ff00-b0a0-11ee-a198-8d4fe50df57a",
+				"layer": "Floor1",
+				"x": 112,
+				"y": 96,
+				"width": 16,
+				"height": 16,
+				"color": 3108798,
+				"customFields": {
+					"Monster": "Bat",
+					"AdjacentRooms": [
+						{
+							"entityIid": "59f7cf80-b0a0-11ee-a198-156c769a6b15",
+							"layerIid": "e4123b20-b0a0-11ee-a198-1be1feb5ba87",
+							"levelIid": "d7609110-b0a0-11ee-a198-edd6c8c69abe",
+							"worldIid": "d7601be0-b0a0-11ee-a198-454119df76b7"
+						}
+					],
+					"PermaBonusStat": null,
+					"PermaBonusAmount": 0
+				}
+			},
+			{
+				"id": "Room",
+				"iid": "746bd050-b0a0-11ee-a198-539b69d1cfa1",
+				"layer": "Floor1",
+				"x": 128,
+				"y": 16,
+				"width": 16,
+				"height": 16,
+				"color": 3108798,
+				"customFields": {
+					"Monster": null,
+					"AdjacentRooms": [
+						{
+							"entityIid": "59f7cf80-b0a0-11ee-a198-156c769a6b15",
+							"layerIid": "e4123b20-b0a0-11ee-a198-1be1feb5ba87",
+							"levelIid": "d7609110-b0a0-11ee-a198-edd6c8c69abe",
+							"worldIid": "d7601be0-b0a0-11ee-a198-454119df76b7"
+						}
+					],
+					"PermaBonusStat": null,
+					"PermaBonusAmount": 0
+				}
+			}
+		],
+		"StartIndicator": [
+			{
+				"id": "StartIndicator",
+				"iid": "cfdb8f20-b0a0-11ee-a198-a17ca4b9d5b4",
+				"layer": "Floor1",
+				"x": 160,
+				"y": 16,
+				"width": 16,
+				"height": 16,
+				"color": 12470831,
+				"customFields": {
+					"StartingRoom": {
+						"entityIid": "746bd050-b0a0-11ee-a198-539b69d1cfa1",
+						"layerIid": "e4123b20-b0a0-11ee-a198-1be1feb5ba87",
+						"levelIid": "d7609110-b0a0-11ee-a198-edd6c8c69abe",
+						"worldIid": "d7601be0-b0a0-11ee-a198-454119df76b7"
+					}
+				}
+			}
+		]
+	}
+}

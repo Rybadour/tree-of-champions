@@ -1,0 +1,273 @@
+{
+	"__header__": {
+		"fileType": "LDtk Project JSON",
+		"app": "LDtk",
+		"doc": "https://ldtk.io/json",
+		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
+		"appAuthor": "Sebastien 'deepnight' Benard",
+		"appVersion": "1.2.5",
+		"url": "https://ldtk.io"
+	},
+	"identifier": "Level_0",
+	"iid": "d7609110-b0a0-11ee-a198-edd6c8c69abe",
+	"uid": 0,
+	"worldX": 0,
+	"worldY": 0,
+	"worldDepth": 0,
+	"pxWid": 256,
+	"pxHei": 256,
+	"__bgColor": "#696A79",
+	"bgColor": null,
+	"useAutoIdentifier": true,
+	"bgRelPath": null,
+	"bgPos": null,
+	"bgPivotX": 0.5,
+	"bgPivotY": 0.5,
+	"__smartColor": "#ADADB5",
+	"__bgPos": null,
+	"externalRelPath": null,
+	"fieldInstances": [],
+	"layerInstances": [
+		{
+			"__identifier": "Floor1",
+			"__type": "Entities",
+			"__cWid": 16,
+			"__cHei": 16,
+			"__gridSize": 16,
+			"__opacity": 1,
+			"__pxTotalOffsetX": 0,
+			"__pxTotalOffsetY": 0,
+			"__tilesetDefUid": null,
+			"__tilesetRelPath": null,
+			"iid": "e4123b20-b0a0-11ee-a198-1be1feb5ba87",
+			"levelId": 0,
+			"layerDefUid": 1,
+			"pxOffsetX": 0,
+			"pxOffsetY": 0,
+			"visible": true,
+			"optionalRules": [],
+			"intGridCsv": [],
+			"autoLayerTiles": [],
+			"seed": 3599013,
+			"overrideTilesetUid": null,
+			"gridTiles": [],
+			"entityInstances": [
+				{
+					"__identifier": "Room",
+					"__grid": [4,3],
+					"__pivot": [0,0],
+					"__tags": [],
+					"__tile": null,
+					"__smartColor": "#2F6FBE",
+					"iid": "59f7cf80-b0a0-11ee-a198-156c769a6b15",
+					"width": 16,
+					"height": 16,
+					"defUid": 2,
+					"px": [64,48],
+					"fieldInstances": [
+						{ "__identifier": "Monster", "__value": null, "__type": "LocalEnum.Monster", "__tile": null, "defUid": 4, "realEditorValues": [] },
+						{ "__identifier": "AdjacentRooms", "__value": [
+							{
+								"entityIid": "5aa1a410-b0a0-11ee-a198-6753f9be4402",
+								"layerIid": "e4123b20-b0a0-11ee-a198-1be1feb5ba87",
+								"levelIid": "d7609110-b0a0-11ee-a198-edd6c8c69abe",
+								"worldIid": "d7601be0-b0a0-11ee-a198-454119df76b7"
+							},
+							{
+								"entityIid": "6ad2ff00-b0a0-11ee-a198-8d4fe50df57a",
+								"layerIid": "e4123b20-b0a0-11ee-a198-1be1feb5ba87",
+								"levelIid": "d7609110-b0a0-11ee-a198-edd6c8c69abe",
+								"worldIid": "d7601be0-b0a0-11ee-a198-454119df76b7"
+							},
+							{
+								"entityIid": "5af2f860-b0a0-11ee-a198-b98d43019929",
+								"layerIid": "e4123b20-b0a0-11ee-a198-1be1feb5ba87",
+								"levelIid": "d7609110-b0a0-11ee-a198-edd6c8c69abe",
+								"worldIid": "d7601be0-b0a0-11ee-a198-454119df76b7"
+							},
+							{
+								"entityIid": "746bd050-b0a0-11ee-a198-539b69d1cfa1",
+								"layerIid": "e4123b20-b0a0-11ee-a198-1be1feb5ba87",
+								"levelIid": "d7609110-b0a0-11ee-a198-edd6c8c69abe",
+								"worldIid": "d7601be0-b0a0-11ee-a198-454119df76b7"
+							}
+						], "__type": "Array<EntityRef>", "__tile": null, "defUid": 5, "realEditorValues": [ {
+							"id": "V_String",
+							"params": ["5aa1a410-b0a0-11ee-a198-6753f9be4402"]
+						}, {
+							"id": "V_String",
+							"params": ["6ad2ff00-b0a0-11ee-a198-8d4fe50df57a"]
+						}, {
+							"id": "V_String",
+							"params": ["5af2f860-b0a0-11ee-a198-b98d43019929"]
+						}, {
+							"id": "V_String",
+							"params": ["746bd050-b0a0-11ee-a198-539b69d1cfa1"]
+						} ] },
+						{ "__identifier": "PermaBonusStat", "__value": null, "__type": "LocalEnum.PlayerStat", "__tile": null, "defUid": 9, "realEditorValues": [] },
+						{ "__identifier": "PermaBonusAmount", "__value": 0, "__type": "Int", "__tile": null, "defUid": 10, "realEditorValues": [] }
+					]
+				},
+				{
+					"__identifier": "Room",
+					"__grid": [13,6],
+					"__pivot": [0,0],
+					"__tags": [],
+					"__tile": null,
+					"__smartColor": "#BE4A2F",
+					"iid": "5aa1a410-b0a0-11ee-a198-6753f9be4402",
+					"width": 16,
+					"height": 16,
+					"defUid": 2,
+					"px": [208,96],
+					"fieldInstances": [
+						{ "__identifier": "Monster", "__value": "Beholder", "__type": "LocalEnum.Monster", "__tile": null, "defUid": 4, "realEditorValues": [{
+							"id": "V_String",
+							"params": ["Beholder"]
+						}] },
+						{ "__identifier": "AdjacentRooms", "__value": [ {
+							"entityIid": "59f7cf80-b0a0-11ee-a198-156c769a6b15",
+							"layerIid": "e4123b20-b0a0-11ee-a198-1be1feb5ba87",
+							"levelIid": "d7609110-b0a0-11ee-a198-edd6c8c69abe",
+							"worldIid": "d7601be0-b0a0-11ee-a198-454119df76b7"
+						}, {
+							"entityIid": "5af2f860-b0a0-11ee-a198-b98d43019929",
+							"layerIid": "e4123b20-b0a0-11ee-a198-1be1feb5ba87",
+							"levelIid": "d7609110-b0a0-11ee-a198-edd6c8c69abe",
+							"worldIid": "d7601be0-b0a0-11ee-a198-454119df76b7"
+						} ], "__type": "Array<EntityRef>", "__tile": null, "defUid": 5, "realEditorValues": [ {
+							"id": "V_String",
+							"params": ["59f7cf80-b0a0-11ee-a198-156c769a6b15"]
+						}, {
+							"id": "V_String",
+							"params": ["5af2f860-b0a0-11ee-a198-b98d43019929"]
+						} ] },
+						{ "__identifier": "PermaBonusStat", "__value": "Health", "__type": "LocalEnum.PlayerStat", "__tile": null, "defUid": 9, "realEditorValues": [{
+							"id": "V_String",
+							"params": ["Health"]
+						}] },
+						{ "__identifier": "PermaBonusAmount", "__value": 2, "__type": "Int", "__tile": null, "defUid": 10, "realEditorValues": [{ "id": "V_Int", "params": [2] }] }
+					]
+				},
+				{
+					"__identifier": "Room",
+					"__grid": [4,8],
+					"__pivot": [0,0],
+					"__tags": [],
+					"__tile": null,
+					"__smartColor": "#2F6FBE",
+					"iid": "5af2f860-b0a0-11ee-a198-b98d43019929",
+					"width": 16,
+					"height": 16,
+					"defUid": 2,
+					"px": [64,128],
+					"fieldInstances": [
+						{ "__identifier": "Monster", "__value": "Rat", "__type": "LocalEnum.Monster", "__tile": null, "defUid": 4, "realEditorValues": [{
+							"id": "V_String",
+							"params": ["Rat"]
+						}] },
+						{ "__identifier": "AdjacentRooms", "__value": [ {
+							"entityIid": "5aa1a410-b0a0-11ee-a198-6753f9be4402",
+							"layerIid": "e4123b20-b0a0-11ee-a198-1be1feb5ba87",
+							"levelIid": "d7609110-b0a0-11ee-a198-edd6c8c69abe",
+							"worldIid": "d7601be0-b0a0-11ee-a198-454119df76b7"
+						}, {
+							"entityIid": "59f7cf80-b0a0-11ee-a198-156c769a6b15",
+							"layerIid": "e4123b20-b0a0-11ee-a198-1be1feb5ba87",
+							"levelIid": "d7609110-b0a0-11ee-a198-edd6c8c69abe",
+							"worldIid": "d7601be0-b0a0-11ee-a198-454119df76b7"
+						} ], "__type": "Array<EntityRef>", "__tile": null, "defUid": 5, "realEditorValues": [ {
+							"id": "V_String",
+							"params": ["5aa1a410-b0a0-11ee-a198-6753f9be4402"]
+						}, {
+							"id": "V_String",
+							"params": ["59f7cf80-b0a0-11ee-a198-156c769a6b15"]
+						} ] },
+						{ "__identifier": "PermaBonusStat", "__value": null, "__type": "LocalEnum.PlayerStat", "__tile": null, "defUid": 9, "realEditorValues": [] },
+						{ "__identifier": "PermaBonusAmount", "__value": 0, "__type": "Int", "__tile": null, "defUid": 10, "realEditorValues": [] }
+					]
+				},
+				{
+					"__identifier": "Room",
+					"__grid": [7,6],
+					"__pivot": [0,0],
+					"__tags": [],
+					"__tile": null,
+					"__smartColor": "#2F6FBE",
+					"iid": "6ad2ff00-b0a0-11ee-a198-8d4fe50df57a",
+					"width": 16,
+					"height": 16,
+					"defUid": 2,
+					"px": [112,96],
+					"fieldInstances": [
+						{ "__identifier": "Monster", "__value": "Bat", "__type": "LocalEnum.Monster", "__tile": null, "defUid": 4, "realEditorValues": [{
+							"id": "V_String",
+							"params": ["Bat"]
+						}] },
+						{ "__identifier": "AdjacentRooms", "__value": [{
+							"entityIid": "59f7cf80-b0a0-11ee-a198-156c769a6b15",
+							"layerIid": "e4123b20-b0a0-11ee-a198-1be1feb5ba87",
+							"levelIid": "d7609110-b0a0-11ee-a198-edd6c8c69abe",
+							"worldIid": "d7601be0-b0a0-11ee-a198-454119df76b7"
+						}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 5, "realEditorValues": [{
+							"id": "V_String",
+							"params": ["59f7cf80-b0a0-11ee-a198-156c769a6b15"]
+						}] },
+						{ "__identifier": "PermaBonusStat", "__value": null, "__type": "LocalEnum.PlayerStat", "__tile": null, "defUid": 9, "realEditorValues": [] },
+						{ "__identifier": "PermaBonusAmount", "__value": 0, "__type": "Int", "__tile": null, "defUid": 10, "realEditorValues": [] }
+					]
+				},
+				{
+					"__identifier": "Room",
+					"__grid": [8,1],
+					"__pivot": [0,0],
+					"__tags": [],
+					"__tile": null,
+					"__smartColor": "#2F6FBE",
+					"iid": "746bd050-b0a0-11ee-a198-539b69d1cfa1",
+					"width": 16,
+					"height": 16,
+					"defUid": 2,
+					"px": [128,16],
+					"fieldInstances": [
+						{ "__identifier": "Monster", "__value": null, "__type": "LocalEnum.Monster", "__tile": null, "defUid": 4, "realEditorValues": [] },
+						{ "__identifier": "AdjacentRooms", "__value": [{
+							"entityIid": "59f7cf80-b0a0-11ee-a198-156c769a6b15",
+							"layerIid": "e4123b20-b0a0-11ee-a198-1be1feb5ba87",
+							"levelIid": "d7609110-b0a0-11ee-a198-edd6c8c69abe",
+							"worldIid": "d7601be0-b0a0-11ee-a198-454119df76b7"
+						}], "__type": "Array<EntityRef>", "__tile": null, "defUid": 5, "realEditorValues": [{
+							"id": "V_String",
+							"params": ["59f7cf80-b0a0-11ee-a198-156c769a6b15"]
+						}] },
+						{ "__identifier": "PermaBonusStat", "__value": null, "__type": "LocalEnum.PlayerStat", "__tile": null, "defUid": 9, "realEditorValues": [] },
+						{ "__identifier": "PermaBonusAmount", "__value": 0, "__type": "Int", "__tile": null, "defUid": 10, "realEditorValues": [] }
+					]
+				},
+				{
+					"__identifier": "StartIndicator",
+					"__grid": [10,1],
+					"__pivot": [0,0],
+					"__tags": [],
+					"__tile": null,
+					"__smartColor": "#BE4A2F",
+					"iid": "cfdb8f20-b0a0-11ee-a198-a17ca4b9d5b4",
+					"width": 16,
+					"height": 16,
+					"defUid": 6,
+					"px": [160,16],
+					"fieldInstances": [{ "__identifier": "StartingRoom", "__value": {
+						"entityIid": "746bd050-b0a0-11ee-a198-539b69d1cfa1",
+						"layerIid": "e4123b20-b0a0-11ee-a198-1be1feb5ba87",
+						"levelIid": "d7609110-b0a0-11ee-a198-edd6c8c69abe",
+						"worldIid": "d7601be0-b0a0-11ee-a198-454119df76b7"
+					}, "__type": "EntityRef", "__tile": null, "defUid": 7, "realEditorValues": [{
+						"id": "V_String",
+						"params": ["746bd050-b0a0-11ee-a198-539b69d1cfa1"]
+					}] }]
+				}
+			]
+		}
+	],
+	"__neighbours": []
+}
