@@ -1,6 +1,8 @@
 import { first } from 'lodash';
 import maze1 from '../../configs/Maze1/simplified/Level_0/data.json';
-import { MapNode } from '../shared/types';
+import { MapNode, Stat } from '../shared/types';
+import champions from './champions';
+import { enumFromKey } from '../shared/utils';
 
 interface INodeMapDesign {
   entities: {
@@ -48,7 +50,18 @@ export function getMapNodes() {
       isVisible: false,
       isComplete: false,
       occupiedByPlayer: false,
+      champion: champions[node.customFields.Monster ?? 'NOOP'],
     };
+    if (node.customFields.PermaBonusStat) {
+      const stat = enumFromKey(Stat, node.customFields.PermaBonusStat);
+      if (!stat) {
+        throw new Error(`Invalid stat: ${node.customFields.PermaBonusStat}`);
+      }
+      nodes[node.iid].permaBonus = {
+        stat: stat,
+        amount: node.customFields.PermaBonusAmount ?? 0,
+      };
+    }
   })
 
   return nodes;

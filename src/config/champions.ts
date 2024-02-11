@@ -1,154 +1,108 @@
 import { Champion } from "../shared/types";
 
 const champions: Record<string, Champion> = {
-  'rat': {
+  'Rat': {
     id: '',
     name: 'Rat',
-    spriteSheet: 'Spider_16x16.png',
+    spriteSheet: 'Toad_16x16.png',
     stats: {
-      health: 40,
-      damage: 5,
-      attackSpeed: 0.5,
-      armor: 0,
+      Health: 40,
+      Damage: 5,
+      AttackSpeed: 0.5,
+      Armor: 0,
     }, 
     earnedStats: {
-      health: 2,
+      Health: 2,
     },
   },
-  'bat': {
+  'Bat': {
     id: '',
     name: 'Bat',
-    spriteSheet: 'Spider_16x16.png',
+    spriteSheet: 'Shadow_16x16.png',
     stats: {
-      health: 30,
-      damage: 3,
-      attackSpeed: 1,
-      armor: 0,
+      Health: 30,
+      Damage: 3,
+      AttackSpeed: 1,
+      Armor: 0,
     },
     earnedStats: {
-      damage: 1,
+      Damage: 1,
     }
   },
-  'spider': {
+  'Spider': {
     id: '',
     name: 'Spider',
     spriteSheet: 'Spider_16x16.png',
     stats: {
-      health: 25,
-      damage: 2,
-      attackSpeed: 2,
+      Health: 25,
+      Damage: 2,
+      AttackSpeed: 2,
     },
     earnedStats: {
-      attackSpeed: 0.05,
+      AttackSpeed: 0.05,
     }
   },
-  'skeleton': {
+  'Skeleton': {
     id: '',
     name: 'Skeleton',
     spriteSheet: '',
     stats: {
-      health: 50,
-      damage: 5,
-      attackSpeed: 0.75,
-      armor: 4,
+      Health: 50,
+      Damage: 5,
+      AttackSpeed: 0.75,
+      Armor: 4,
     },
     earnedStats: {
-      armor: 0.25,
-      damage: -1,
+      Armor: 0.25,
+      Damage: -1,
     }
   },
-  'ghost': {
+  'Ghost': {
     id: '',
     name: 'Ghost',
     spriteSheet: 'Ghost_16x16.png',
     stats: {
-      health: 80,
-      damage: 2,
-      attackSpeed: 2,
-      lifeSteal: 0.5,
+      Health: 80,
+      Damage: 2,
+      AttackSpeed: 2,
+      LifeSteal: 0.5,
     },
     earnedStats: {
-      lifeSteal: 0.05,
-      health: -5,
+      LifeSteal: 0.05,
+      Health: -5,
     }
   },
-  'python': {
+  'Python': {
     id: '',
     name: 'Giant Python',
     spriteSheet: '',
     stats: {
-      health: 60,
-      damage: 1,
-      attackSpeed: 0.5,
-      poison: 2.5,
+      Health: 60,
+      Damage: 1,
+      AttackSpeed: 0.5,
+      Poison: 2.5,
     },
     earnedStats: {
-      poison: 0.25,
-      damage: -0.75,
+      Poison: 0.25,
+      Damage: -0.75,
     }
   },
-  'beast': {
+  'Beast': {
     id: '',
     name: 'Beast',
     spriteSheet: 'Creature_16x16.png',
     stats: {
-      health: 100,
-      damage: 15,
-      attackSpeed: 0.25,
-      armor: 5,
-      stunChance: 50,
+      Health: 100,
+      Damage: 15,
+      AttackSpeed: 0.25,
+      Armor: 5,
+      StunChance: 50,
     },
     earnedStats: {
-      stunChance: 10,
-      attackSpeed: -0.05,
+      StunChance: 10,
+      AttackSpeed: -0.05,
     }
   },
-  'shadow': {
-    id: '',
-    name: 'Shadow',
-    spriteSheet: 'Shadow_16x16.png',
-    stats: {
-      health: 200,
-      damage: 6,
-      attackSpeed: 1.1,
-      armor: 2,
-      lifeSteal: 0.1,
-    },
-    earnedStats: {
-      lifeSteal: 0.1,
-      damage: -0.25,
-    }
-  },
-  'beholder': {
-    id: '',
-    name: 'Beholder',
-    spriteSheet: 'Beholder_16x16.png',
-    stats: {
-      health: 200,
-      damage: 15,
-      attackSpeed: 0.5,
-      armor: 5,
-      critChance: 0.5,
-    },
-    earnedStats: {
-      lifeSteal: 0.1,
-      damage: -0.25,
-    }
-  },
-  'god': {
-    id: '',
-    name: 'DEATH',
-    spriteSheet: '',
-    stats: {
-      health: 2000,
-      damage: 100,
-      attackSpeed: 2,
-      armor: 100,
-      lifeSteal: 1,
-    },
-    earnedStats: {
-    }
-  }
 };
 
 Object.keys(champions)

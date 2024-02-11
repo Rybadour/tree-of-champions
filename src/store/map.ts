@@ -58,7 +58,9 @@ function getInitialNodes(): Record<string, MapNode> {
     const node = newNodes[n];
     newNodes[n] = {
       ...newNodes[n],
-      occupiedByPlayer: (node.isStart ? true : false),
+      occupiedByPlayer: node.isStart,
+      isVisible: node.isStart || node.adjacentRooms.some(adj => newNodes[adj].isStart), // TODO: Remember last revealed rooms
+      isComplete: node.isStart,
       isLocked: node.isStart || node.adjacentRooms.some(adj => newNodes[adj].isStart),
     };
   }

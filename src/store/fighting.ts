@@ -60,7 +60,7 @@ function updateFighter(elapsed: number, fighter: Fighter, opponent: Fighter) {
     return;
   }
 
-  const attackTime = (1 / (fighter.baseStats.attackSpeed ?? 0));
+  const attackTime = (1 / (fighter.baseStats.AttackSpeed ?? 0));
   if (fighter.attackCooldown < attackTime) {
     fighter.attackCooldown += elapsed;
     return;
@@ -68,24 +68,24 @@ function updateFighter(elapsed: number, fighter: Fighter, opponent: Fighter) {
   
   fighter.attackCooldown = 0;
 
-  let damage = fighter.baseStats.damage ?? 0;
-  if (Math.random() < (fighter.baseStats.critChance ?? 0)) {
+  let damage = fighter.baseStats.Damage ?? 0;
+  if (Math.random() < (fighter.baseStats.CritChance ?? 0)) {
     damage *= 2;
   }
-  if (opponent.baseStats.armor) {
-    damage -= opponent.baseStats.armor;
+  if (opponent.baseStats.Armor) {
+    damage -= opponent.baseStats.Armor;
   }
   opponent.health -= damage;
 
-  if (fighter.baseStats.lifeSteal) {
-    fighter.health = Math.min(fighter.health + damage * fighter.baseStats.lifeSteal, fighter.baseStats.health ?? 0);
+  if (fighter.baseStats.LifeSteal) {
+    fighter.health = Math.min(fighter.health + damage * fighter.baseStats.LifeSteal, fighter.baseStats.Health ?? 0);
   }
 
-  using(fighter.baseStats.poison, p => {
+  using(fighter.baseStats.Poison, p => {
     applyStatus(opponent, Status.Poisoned, p);
   });
 
-  using(fighter.baseStats.stunChance, sc => {
+  using(fighter.baseStats.StunChance, sc => {
     const stunHit = Math.random() < (sc / 100);
     if (stunHit) {
       applyStatus(opponent, Status.Stunned, 3);
@@ -127,7 +127,7 @@ function getChampionFighter(champion: Champion): Pick<ChampionFighter, "champion
       spriteSize: 16,
       attackAnimationRow: 0,
       baseStats: champion.stats,
-      health: champion.stats.health ?? 0,
+      health: champion.stats.Health ?? 0,
       attackCooldown: 0,
       statusEffects: {},
     },

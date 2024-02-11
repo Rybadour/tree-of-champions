@@ -1,16 +1,16 @@
 import { StoreApi } from "zustand";
 
 export enum Stat {
-  Health = "health",
-  Damage = "damage",
-  AttackSpeed = "attackSpeed",
-  Armor = "armor",
-  DodgeChance = "dodgeChance",
-  LifeSteal = "lifeSteal",
-  HealOnKill = "healOnKill",
-  CritChance = "critChance",
-  Poison = "poison",
-  StunChance = "stunChance",
+  Health = "Health",
+  Damage = "Damage",
+  AttackSpeed = "AttackSpeed",
+  Armor = "Armor",
+  DodgeChance = "DodgeChance",
+  LifeSteal = "LifeSteal",
+  HealOnKill = "HealOnKill",
+  CritChance = "CritChance",
+  Poison = "Poison",
+  StunChance = "StunChance",
 }
 
 export type Stats = Partial<Record<Stat, number>>;

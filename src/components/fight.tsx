@@ -37,7 +37,7 @@ export default function Fight() {
 
 
 function FighterStats(props: {fighter: Fighter, flip?: boolean}) {
-  const attackTime = 1 / (props.fighter.baseStats.attackSpeed ?? 0);
+  const attackTime = 1 / (props.fighter.baseStats.AttackSpeed ?? 0);
   return <FighterStatsStyled align={props.flip ? "flex-end" : "flex-start"}>
     <h2>{props.fighter.name}</h2>
 
@@ -58,7 +58,7 @@ function FighterStats(props: {fighter: Fighter, flip?: boolean}) {
       radius={20}
     />
     <HealthAndStatus flip={props.flip}>
-      <div>{formatNumber(props.fighter.health, 0, 0)}/{formatNumber(props.fighter.baseStats.health ?? 0, 0, 0)}</div>
+      <div>{formatNumber(props.fighter.health, 0, 0)}/{formatNumber(props.fighter.baseStats.Health ?? 0, 0, 0)}</div>
       <Statuses>
       {Object.values(props.fighter.statusEffects)
         .filter(e => e)
@@ -71,7 +71,7 @@ function FighterStats(props: {fighter: Fighter, flip?: boolean}) {
       </Statuses>
     </HealthAndStatus>
     <ProgressBar
-      progress={props.fighter.health / (props.fighter.baseStats.health ?? 1)}
+      progress={props.fighter.health / (props.fighter.baseStats.Health ?? 1)}
       hasBorder={true}
       color={"red"}
       height={20}
