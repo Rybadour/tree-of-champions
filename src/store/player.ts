@@ -1,15 +1,22 @@
-import { Fighter, MyCreateSlice, Stat, Stats } from "../shared/types";
+import { ChampionFighter, Fighter, MyCreateSlice, Stat, Stats } from "../shared/types";
 import { mergeSumPartial } from "../shared/utils";
+import { MapSlice } from "./map";
+import { getChampionFighter, updateFighter } from "../gamelogic/fighting";
 
 export interface PlayerSlice {
+  isFighting: boolean,
   fighter: Fighter,
-  fightQueue: number[],
+  nodeQueue: string[],
   autoQueueEnabled: boolean,
+  msUntilNextAction: number,
+  championFighter?: ChampionFighter,
 
+  update: (elapsed: number) => void,
   wonFight: (newFighter: Fighter, stats: Stats) => void,
   lostFight: () => void,
-  updateFightQueue: (row: number, column: number) => void,
   setAutoQueue: (enabled: boolean) => void,
+  addToQueue: (nodeId: string) => void,
+  removeFromQueue: (nodeId: string) => void,
 }
 
 const startingStats: Stats = {
@@ -19,8 +26,43 @@ const startingStats: Stats = {
   [Stat.CritChance]: 0.75,
 };
 
-const createPlayerSlice: MyCreateSlice<PlayerSlice, []> = (set, get) => {
+const MOVEMENT_DELAY = 0.5;
+
+const createPlayerSlice: MyCreateSlice<PlayerSlice, [() => MapSlice]> = (set, get, map) => {
+  function updateFighting(elapsed: number) {
+    const player = get().fighter;
+    let championFighter = get().championFighter;
+    if (!championFighter) return;
+
+    updateFighter(elapsed, player, championFighter.fighter);
+    if (championFighter.fighter.health <= 0) {
+      map().completePlayerNode();
+      const earnedStats = championFighter.champion.earnedStats;
+      set({
+        isFighting: false,
+        fighter: {
+          ...player,
+          baseStats: mergeSumPartial(get().fighter.baseStats, earnedStats),
+          health: player.health + (earnedStats.Health ?? 0),
+          attackCooldown: 0,
+          statusEffects: {},
+        }
+      });
+      return;
+    }
+
+    updateFighter(elapsed, championFighter.fighter, player);
+    if (player.health <= 0) {
+      get().lostFight();
+
+      //set({player: playerStore().fighter, championFighter: getNextFighter()});
+      return;
+    }
+
+    set({ fighter: { ...player }, championFighter: { ...championFighter } });
+  }
   return {
+    isFighting: false,
     fighter: {
       name: "Player",
       spriteSheet: 'Player_Saoirse32x32-Sheet.png',
@@ -31,44 +73,73 @@ const createPlayerSlice: MyCreateSlice<PlayerSlice, []> = (set, get) => {
       attackCooldown: 0,
       statusEffects: {},
     },
-    fightQueue: [],
+    nodeQueue: [],
     autoQueueEnabled: true,
+    msUntilNextAction: MOVEMENT_DELAY,
+    championFighter: undefined,
 
+    update: (elapsed) => {
+      if (get().isFighting) {
+        updateFighting(elapsed);
+        return;
+      }
+
+      const queue = [...get().nodeQueue];
+      if (queue.length === 0 || get().isFighting) return;
+
+      const timeLeft = get().msUntilNextAction;
+      if (timeLeft > 0) {
+        set({ msUntilNextAction: timeLeft - elapsed});
+        return;
+      }
+
+      const nextNode = queue.shift();
+      map().movePlayer(nextNode!);
+
+      const newState: Partial<PlayerSlice> = { msUntilNextAction: MOVEMENT_DELAY, nodeQueue: queue};
+      const champion = map().getNodeChampion(nextNode!);
+      if (champion) {
+        newState.isFighting = true;
+        newState.championFighter = getChampionFighter(champion);
+      } else {
+        map().completePlayerNode();
+      }
+      set(newState);
+    },
+    
     wonFight: (newFighter, stats) => {
-      set({fighter: {
-        ...newFighter,
-        baseStats: mergeSumPartial(get().fighter.baseStats, stats),
-        health: newFighter.health + (stats.Health ?? 0),
-        attackCooldown: 0,
-        statusEffects: {},
-      }});
     },
 
     lostFight: () => {
       const fighter = get().fighter;
-      set({fighter: {
-        ...fighter,
-        health: fighter.baseStats.Health ?? 0,
-        attackCooldown: 0,
-        statusEffects: {},
-      }});
+      set({
+        isFighting: false,
+        fighter: {
+          ...fighter,
+          health: fighter.baseStats.Health ?? 0,
+          attackCooldown: 0,
+          statusEffects: {},
+        }
+      });
     },
 
-    updateFightQueue: (row: number, column: number) => {
-      let newQueue = [...get().fightQueue];
-      if (newQueue.length > row && newQueue[row] !== column) {
-        newQueue = newQueue.slice(0, row);
-      }
+    addToQueue: (nodeId: string) => {
+      set({nodeQueue: [...get().nodeQueue, nodeId]});
+    },
 
-      newQueue[row] = column;
-      set({fightQueue: newQueue});
+    removeFromQueue: (nodeId: string) => {
+      const queue = get().nodeQueue;
+      const index = queue.findIndex(n => n === nodeId);
+      if (index !== -1) {
+        set({ nodeQueue: queue.slice(0, index) });
+      }
     },
 
     setAutoQueue: (enabled: boolean) => {
       set({autoQueueEnabled: enabled});
     }
-
   };
 };
+
 
 export default createPlayerSlice;

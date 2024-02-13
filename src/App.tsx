@@ -28,10 +28,7 @@ function App() {
 
 let lastTime: number = performance.now();
 function Content() {
-  const player = useStore(s => s.player.fighter);
-  const fighting = useStore(s => pick(s.fighting, [
-    'championFighter', 'update'
-  ]), shallow);
+  const player = useStore(s => s.player);
 
   const requestRef = useRef(0);
   const previousTimeRef = useRef(0);
@@ -40,7 +37,7 @@ function Content() {
     if (previousTimeRef.current != undefined) {
       const elapsed = (time - previousTimeRef.current) / 1000;
 
-      fighting.update(elapsed)
+      player.update(elapsed);
     }
     previousTimeRef.current = time;
     requestRef.current = requestAnimationFrame(animate);
@@ -53,14 +50,14 @@ function Content() {
 
   return <ContentStyled>
     <SideColumn>
-      <FighterStats fighter={player} />
+      <FighterStats fighter={player.fighter} />
       <FightQueue />
     </SideColumn>
     <ChampionsSection>
       <Fight />
       <Map />
     </ChampionsSection>
-    <FighterStats fighter={fighting.championFighter?.fighter} flipDirection />
+    <FighterStats fighter={player.championFighter?.fighter} flipDirection />
   </ContentStyled>;
 }
 

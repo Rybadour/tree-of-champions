@@ -1,8 +1,6 @@
-import { pick } from "lodash";
 import { useEffect } from "react";
 import ReactTooltip from "react-tooltip";
 import styled from "styled-components";
-import shallow from "zustand/shallow";
 import statusConfig from "../config/statuses";
 import { ProgressCircle } from "../shared/components/circle-progress-bar";
 import Icon from "../shared/components/icon";
@@ -12,26 +10,24 @@ import { formatNumber } from "../shared/utils";
 import useStore from "../store";
 
 export default function Fight() {
-  const fighting = useStore(s => pick(s.fighting, [
-    'player', 'championFighter',
-  ]), shallow);
+  const player = useStore(s => s.player);
 
   useEffect(() => {
     ReactTooltip.rebuild();
-  }, [fighting.player, fighting.championFighter]);
+  }, [player]);
 
-  if (!fighting.player || !fighting.championFighter) {
+  if (!player.championFighter) {
     return <BeforeFight>
       <strong>Select a Champion to Fight</strong>
     </BeforeFight>;
   }
 
   return <ActiveFight>
-    <FighterStats fighter={fighting.player} />
+    <FighterStats fighter={player.fighter} />
     <VSContainer>
       <VSLabel>VS</VSLabel>
     </VSContainer>
-    <FighterStats fighter={fighting.championFighter.fighter} flip={true} />
+    <FighterStats fighter={player.championFighter?.fighter} flip={true} />
   </ActiveFight>;
 }
 

@@ -2,11 +2,19 @@ import styled, { css } from "styled-components";
 
 import useStore from "../../store";
 import { MapNode } from "../../shared/types";
+import { useCallback } from "react";
 
 const ZOOM = 2;
 
 export function Map() {
   const map = useStore(s => s.map);
+  const player = useStore(s => s.player);
+
+  const onNodeClick = useCallback((nodeId: string) => {
+    if (player.autoQueueEnabled) {
+      player.addToQueue(nodeId);
+    }
+  }, [player]);
 
   return <Page>
     <h2>Maze</h2>
@@ -21,7 +29,7 @@ export function Map() {
           if (!node.isVisible) return null;
 
           return <StyledMapNode
-            key={n} isComplete={node.isComplete} isTarget={false}
+            key={n} isComplete={node.isComplete} isTarget={false} isLocked={node.isLocked} onClick={() => onNodeClick(n)}
             cx={node.x * ZOOM} cy={node.y * ZOOM} r={20} />; 
         })}
       </StyledMap>
@@ -30,7 +38,7 @@ export function Map() {
           const node = map.nodes[n];
           if (!node.isVisible) return null;
 
-          if (node.occupiedByPlayer) {
+          if (map.playerNode === n) {
             return <Sprite spriteSheet="warrior.png" x={node.x * ZOOM} y={node.y * ZOOM}
               spriteSize={16} row={0} scale={1.5} />
           }
@@ -87,10 +95,11 @@ const SpritesContainer = styled.div`
   left: 1px;
   width: 100%;
   height: 100%;
+  pointer-events: none;
 `;
 
-const StyledMapNode = styled.circle<{isComplete: boolean, isTarget: boolean}>`
-  fill: ${props => props.isComplete ? '#5B8FB9;' : '#777'};
+const StyledMapNode = styled.circle<{isComplete: boolean, isTarget: boolean, isLocked: boolean}>`
+  fill: ${p => p.isComplete ? '#5B8FB9;' : (p.isLocked ? '#333' : '#777')};
 
   ${p => p.isTarget && css`
     stroke: white;

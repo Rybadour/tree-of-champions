@@ -49,7 +49,6 @@ export function getMapNodes() {
       isLocked: false,
       isVisible: false,
       isComplete: false,
-      occupiedByPlayer: false,
       champion: champions[node.customFields.Monster ?? 'NOOP'],
     };
     if (node.customFields.PermaBonusStat) {

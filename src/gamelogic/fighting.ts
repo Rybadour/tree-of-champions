@@ -1,59 +1,7 @@
-import { Champion, ChosenChampion, Fighter, MyCreateSlice, Stats, Status, StatusEffect } from "../shared/types";
+import { Champion, ChampionFighter, Fighter, Status, StatusEffect } from "../shared/types";
 import { using } from "../shared/utils";
-import { ChampionsSlice } from "./champions";
-import { PlayerSlice } from "./player";
 
-export interface ChampionFighter extends ChosenChampion {
-  fighter: Fighter,
-} 
-
-export interface FightingSlice {
-  player: Fighter | null,
-  championFighter: ChampionFighter | null,
-
-  startFight: (player: Fighter, champion: Champion, row: number, index: number) => void, 
-  update: (elapsed: number) => void,
-}
-
-const createFightingSlice: MyCreateSlice<FightingSlice, [() => PlayerSlice, () => ChampionsSlice]>
-= (set, get, playerStore, championsStore) => {
-  return {
-    player: null,
-    championFighter: null,
-    champion: null,
-
-    startFight: (player, champion, row, index) => {
-      set({ player, championFighter: {...getChampionFighter(champion), row, index} });
-    },
-    
-    update: (elapsed) => {
-      let {player, championFighter} = get();
-      if (!player || !championFighter) return;
-
-      updateFighter(elapsed, player, championFighter.fighter);
-      if (championFighter.fighter.health <= 0) {
-        playerStore().wonFight(player, championFighter.champion.earnedStats);
-        championsStore().championDefeated(championFighter);
-
-        //set({player: playerStore().fighter, championFighter: getNextFighter()});
-        return;
-      }
-
-      updateFighter(elapsed, championFighter.fighter, player);
-      if (player.health <= 0) {
-        playerStore().lostFight();
-        championsStore().reset();
-
-        //set({player: playerStore().fighter, championFighter: getNextFighter()});
-        return;
-      }
-
-      set({player: {...player}, championFighter: {...championFighter}});
-    },
-  };
-};
-
-function updateFighter(elapsed: number, fighter: Fighter, opponent: Fighter) {
+export function updateFighter(elapsed: number, fighter: Fighter, opponent: Fighter) {
   updateEffect(elapsed, fighter, Status.Poisoned);
   updateEffect(elapsed, fighter, Status.Stunned);
   if (fighter.statusEffects.stunned || fighter.health <= 0) {
@@ -93,7 +41,7 @@ function updateFighter(elapsed: number, fighter: Fighter, opponent: Fighter) {
   });
 }
 
-function updateEffect(elapsed: number, fighter: Fighter, status: Status) {
+export function updateEffect(elapsed: number, fighter: Fighter, status: Status) {
   const effect = fighter.statusEffects[status];
   if (!effect) return;
 
@@ -118,7 +66,7 @@ function applyStatus(fighter: Fighter, status: Status, value: number) {
   fighter.statusEffects[status] = newStatus;
 }
 
-function getChampionFighter(champion: Champion): Pick<ChampionFighter, "champion" | "fighter"> {
+export function getChampionFighter(champion: Champion): ChampionFighter {
   return {
     champion: champion,
     fighter: {
@@ -133,5 +81,3 @@ function getChampionFighter(champion: Champion): Pick<ChampionFighter, "champion
     },
   };
 }
-
-export default createFightingSlice;

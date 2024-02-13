@@ -42,12 +42,6 @@ export interface Champion {
   earnedStats: Stats,
 }
 
-export interface ChosenChampion {
-  champion: Champion,
-  row: number,
-  index: number,
-}
-
 export interface Fighter {
   name: string,
   spriteSheet: string,
@@ -59,6 +53,11 @@ export interface Fighter {
   attackCooldown: number,
 }
 
+export interface ChampionFighter {
+  champion: Champion,
+  fighter: Fighter,
+} 
+
 export interface MapNode {
   id: string,
   x: number;
@@ -68,7 +67,6 @@ export interface MapNode {
   isComplete: boolean,
   isLocked: boolean,
   isVisible: boolean,
-  occupiedByPlayer: boolean,
   champion?: Champion,
   permaBonus?: {
     stat: Stat,
