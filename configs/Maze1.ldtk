@@ -5,12 +5,12 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "1.2.5",
+		"appVersion": "1.4.0",
 		"url": "https://ldtk.io"
 	},
 	"iid": "d75fcdc0-b0a0-11ee-a198-4b1e4da894cd",
-	"jsonVersion": "1.2.5",
-	"appBuildId": 464870,
+	"jsonVersion": "1.4.0",
+	"appBuildId": 470941,
 	"nextUid": 11,
 	"identifierStyle": "Capitalize",
 	"toc": [],
@@ -22,6 +22,8 @@
 	"defaultPivotX": 0,
 	"defaultPivotY": 0,
 	"defaultGridSize": 16,
+	"defaultEntityWidth": 16,
+	"defaultEntityHeight": 16,
 	"bgColor": "#40465B",
 	"defaultLevelBgColor": "#696A79",
 	"minifyJson": false,
@@ -33,6 +35,7 @@
 	"pngFilePattern": null,
 	"backupOnSave": false,
 	"backupLimit": 10,
+	"backupRelPath": null,
 	"levelNamePattern": "Level_%idx",
 	"tutorialDesc": null,
 	"customCommands": [],
@@ -44,6 +47,7 @@
 			"type": "Entities",
 			"uid": 1,
 			"doc": null,
+			"uiColor": null,
 			"gridSize": 16,
 			"guideGridWid": 0,
 			"guideGridHei": 0,
@@ -52,6 +56,7 @@
 			"hideInList": false,
 			"hideFieldsWhenInactive": true,
 			"canSelectWhenInactive": true,
+			"renderInWorldView": true,
 			"pxOffsetX": 0,
 			"pxOffsetY": 0,
 			"parallaxFactorX": 0,
@@ -60,6 +65,7 @@
 			"requiredTags": [],
 			"excludedTags": [],
 			"intGridValues": [],
+			"intGridValuesGroups": [],
 			"autoRuleGroups": [],
 			"autoSourceLayerDefUid": null,
 			"tilesetDefUid": null,
@@ -77,6 +83,10 @@
 			"height": 16,
 			"resizableX": false,
 			"resizableY": false,
+			"minWidth": null,
+			"maxWidth": null,
+			"minHeight": null,
+			"maxHeight": null,
 			"keepAspectRatio": false,
 			"tileOpacity": 1,
 			"fillOpacity": 1,
@@ -88,6 +98,7 @@
 			"tilesetId": null,
 			"tileRenderMode": "FitInside",
 			"tileRect": null,
+			"uiTileRect": null,
 			"nineSliceBorders": [],
 			"maxCount": 0,
 			"limitScope": "PerLevel",
@@ -106,8 +117,10 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "ValueOnly",
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Beneath",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
@@ -124,6 +137,7 @@
 					"autoChainRef": true,
 					"allowOutOfLevelRef": true,
 					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
 					"allowedRefTags": [],
 					"tilesetUid": null
 				},
@@ -138,8 +152,10 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "RefLinkBetweenCenters",
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": true,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
@@ -156,6 +172,7 @@
 					"autoChainRef": true,
 					"allowOutOfLevelRef": false,
 					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
 					"allowedRefTags": [],
 					"tilesetUid": null
 				},
@@ -170,8 +187,10 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "ValueOnly",
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Beneath",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
@@ -188,6 +207,7 @@
 					"autoChainRef": true,
 					"allowOutOfLevelRef": true,
 					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
 					"allowedRefTags": [],
 					"tilesetUid": null
 				},
@@ -202,8 +222,10 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "ValueOnly",
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Beneath",
 					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
@@ -220,6 +242,7 @@
 					"autoChainRef": true,
 					"allowOutOfLevelRef": true,
 					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
 					"allowedRefTags": [],
 					"tilesetUid": null
 				}
@@ -235,6 +258,10 @@
 			"height": 16,
 			"resizableX": false,
 			"resizableY": false,
+			"minWidth": null,
+			"maxWidth": null,
+			"minHeight": null,
+			"maxHeight": null,
 			"keepAspectRatio": false,
 			"tileOpacity": 1,
 			"fillOpacity": 1,
@@ -246,6 +273,7 @@
 			"tilesetId": null,
 			"tileRenderMode": "FitInside",
 			"tileRect": null,
+			"uiTileRect": null,
 			"nineSliceBorders": [],
 			"maxCount": 0,
 			"limitScope": "PerLevel",
@@ -264,8 +292,10 @@
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
 					"editorDisplayMode": "RefLinkBetweenCenters",
+					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "DashedLine",
+					"editorDisplayColor": null,
 					"editorAlwaysShow": false,
 					"editorShowInWorld": true,
 					"editorCutLongValues": true,
@@ -282,6 +312,7 @@
 					"autoChainRef": true,
 					"allowOutOfLevelRef": true,
 					"allowedRefs": "Any",
+					"allowedRefsEntityUid": null,
 					"allowedRefTags": [],
 					"tilesetUid": null
 				}
@@ -289,15 +320,16 @@
 		}
 	], "tilesets": [], "enums": [
 		{ "identifier": "Monster", "uid": 3, "values": [
-			{ "id": "Bat", "tileId": null, "color": 12470831, "__tileSrcRect": null },
-			{ "id": "Rat", "tileId": null, "color": 14120515, "__tileSrcRect": null },
-			{ "id": "Beholder", "tileId": null, "color": 15389866, "__tileSrcRect": null }
+			{ "id": "Bat", "tileRect": null, "color": 12470831 },
+			{ "id": "Rat", "tileRect": null, "color": 14120515 },
+			{ "id": "Beholder", "tileRect": null, "color": 15389866 },
+			{ "id": "Python", "tileRect": null, "color": 14984818 }
 		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
 		{ "identifier": "PlayerStat", "uid": 8, "values": [
-			{ "id": "Health", "tileId": null, "color": 12470831, "__tileSrcRect": null },
-			{ "id": "Damage", "tileId": null, "color": 14120515, "__tileSrcRect": null },
-			{ "id": "Armor", "tileId": null, "color": 15389866, "__tileSrcRect": null },
-			{ "id": "AttackSpeed", "tileId": null, "color": 14984818, "__tileSrcRect": null }
+			{ "id": "Health", "tileRect": null, "color": 12470831 },
+			{ "id": "Damage", "tileRect": null, "color": 14120515 },
+			{ "id": "Armor", "tileRect": null, "color": 15389866 },
+			{ "id": "AttackSpeed", "tileRect": null, "color": 14984818 }
 		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] }
 	], "externalEnums": [], "levelFields": [] },
 	"levels": [
@@ -325,5 +357,6 @@
 			"__neighbours": []
 		}
 	],
-	"worlds": []
+	"worlds": [],
+	"dummyWorldIid": "1ccd03e0-b0a0-11ee-a238-b114f1fc744d"
 }

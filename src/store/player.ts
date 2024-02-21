@@ -20,7 +20,7 @@ export interface PlayerSlice {
 }
 
 const startingStats: Stats = {
-  [Stat.Health]: 100,
+  [Stat.Health]: 20,
   [Stat.Damage]: 10,
   [Stat.AttackSpeed]: 0.25,
   [Stat.CritChance]: 0.75,
@@ -55,7 +55,7 @@ const createPlayerSlice: MyCreateSlice<PlayerSlice, [() => MapSlice]> = (set, ge
     if (player.health <= 0) {
       get().lostFight();
 
-      //set({player: playerStore().fighter, championFighter: getNextFighter()});
+
       return;
     }
 
@@ -111,9 +111,12 @@ const createPlayerSlice: MyCreateSlice<PlayerSlice, [() => MapSlice]> = (set, ge
     },
 
     lostFight: () => {
+      map().reset();
+
       const fighter = get().fighter;
       set({
         isFighting: false,
+        championFighter: undefined,
         fighter: {
           ...fighter,
           health: fighter.baseStats.Health ?? 0,

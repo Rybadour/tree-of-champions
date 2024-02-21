@@ -58,19 +58,12 @@ const createMapSlice: MyCreateSlice<MapSlice, []> = (set, get) => {
       const oldNodes = get().nodes;
       for (const id in oldNodes) {
         const oldNode = oldNodes[id];
-        if (oldNode.isStart) {
-          newNodes[oldNode.id] = oldNode;
-        } else {
-          newNodes[oldNode.id] = {
-            ...oldNode,
-            isComplete: false,
-            isLocked: true,
-            isVisible: false,
-          };
+        if (oldNode.isVisible) {
+          newNodes[oldNode.id].isVisible = true;
         }
       }
 
-      set({ nodes: newNodes });
+      set({ nodes: newNodes, playerNode: Object.keys(newNodes).find(id => newNodes[id].isStart) ?? ''});
     }
   }
 }
